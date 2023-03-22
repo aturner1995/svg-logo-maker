@@ -63,7 +63,6 @@ function init() {
         const logo = new Svg(textColor, userText, userShape);
 
         const logoString = logo.render();
-        console.log(logoString);
         writeToFIle('logo.svg', logoString);
     })
     .catch((err) => {
