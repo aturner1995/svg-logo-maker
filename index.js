@@ -1,13 +1,15 @@
 const {Circle, Triangle, Square} = require('./lib/shapes');
 const inquirer = require('inquirer');
-
+const Svg = require('./lib/svg');
+const fs = require('fs');
+// Questions for user response
 const questions = [
     {
         type: 'input',
         name: 'text',
         message: 'Please enter up to 3 characters:',
         validate: function(input) {
-            if (input.length > 3) {
+            if (input.length > 3 || input.length === 0) {
                 return "Please enter up to 3 characters only"
             }
             return true;
@@ -15,8 +17,8 @@ const questions = [
     },
     {
         type: 'input',
-        name: 'text-colour',
-        message: 'TEXT-COLOUR: Please enter a color keyword (OR a hexadecimal number)'
+        name: 'textColor',
+        message: 'TEXT-COLOR: Please enter a color keyword (OR a hexadecimal number)'
     },
     {
         type: 'list',
@@ -26,19 +28,46 @@ const questions = [
     },
     {
         type: 'input',
-        name: 'colour',
-        message: 'SHAPE-COLOUR: Please enter a color keyword (OR a hexadecimal number)'
+        name: 'color',
+        message: 'SHAPE-COLOR: Please enter a color keyword (OR a hexadecimal number)'
     } 
 ];
-
+// Writes the logo.svg file & if there is an error it shows in the console
 function writeToFIle(fileName, data) {
-
+    fs.writeFile(fileName, data, err => {
+        err ? console.error(err) : console.log('Your Logo has been generated!')
+    })
 };
-
+// Function to prompt user for their logo suggestions
 function init() {
     inquirer.prompt(questions)
     .then((res) => {
-        console.log(res);
+        let userShape;
+        userText = res.text;
+        textColor = res.textColor;
+        userShapeType = res.shape;
+        shapeColor = res.color;
+        // Check the user shape submission 
+        if (userShapeType === 'Circle') {
+            userShape = new Circle();
+        }
+        else if (userShapeType === 'Square') {
+            userShape = new Square();
+        }
+        else if (userShapeType === 'Triangle') {
+            userShape = new Triangle();
+        }
+        userShape.setColor(shapeColor);
+        console.log(shapeColor)
+
+        const logo = new Svg(textColor, userText, userShape);
+
+        const logoString = logo.render();
+        console.log(logoString);
+        writeToFIle('logo.svg', logoString);
+    })
+    .catch((err) => {
+        console.error("You have an error in the results submisson", err);
     })
 };
 
