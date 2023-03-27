@@ -18,6 +18,7 @@ To install please either clone or fork the repo and run npm install + node index
 
 ## Usage ⚙️
 To run the program - node index.js
+Watch Instructional Video - [SVG Logo Generator.webm](https://user-images.githubusercontent.com/120421650/227960201-0341c53a-7d7f-46de-a2ba-e5d02696b563.webm)
 
 ## Contribution 🙏
 Please email the repo user for instructions
