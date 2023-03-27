@@ -35,7 +35,7 @@ const questions = [
 // Writes the logo.svg file & if there is an error it shows in the console
 function writeToFIle(fileName, data) {
     fs.writeFile(fileName, data, err => {
-        err ? console.error(err) : console.log('Your Logo has been generated!')
+        err ? console.error(err) : console.log('Generated logo.svg')
     })
 };
 // Function to prompt user for their logo suggestions
@@ -58,8 +58,6 @@ function init() {
             userShape = new Triangle();
         }
         userShape.setColor(shapeColor);
-        console.log(shapeColor)
-
         const logo = new Svg(textColor, userText, userShape);
 
         const logoString = logo.render();
