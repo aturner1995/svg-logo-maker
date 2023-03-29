@@ -61,7 +61,7 @@ function init() {
         const logo = new Svg(textColor, userText, userShape);
 
         const logoString = logo.render();
-        writeToFIle('logo.svg', logoString);
+        writeToFIle('./dist/logo.svg', logoString);
     })
     .catch((err) => {
         console.error("You have an error in the results submisson", err);
